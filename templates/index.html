@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Código de Barras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-size: 16px;
+            margin: 10px 0;
+            display: block;
+        }
+        input[type="text"], input[type="submit"] {
+            width: 97%;
+            padding: 10px;
+            margin: 8px 0 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .product-fields {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fafafa;
+            margin-top: 10px;
+        }
+        .product-fields input {
+            margin-right: 10px;
+        }
+        .add-product-btn {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .add-product-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Gerador de Código de Barras</h1>
+
+    <div class="container">
+        <h2>Adicionar Produtos</h2>
+        <form action="/gerar_pdf" method="POST" id="product-form">
+            <div id="products-container">
+                <!-- Produtos dinâmicos serão adicionados aqui -->
+                <div class="product-fields">
+                    <label for="codigo_produto">Código do Produto:</label>
+                    <input type="text" name="codigo_produto[]" required>
+
+                    <label for="descricao">Descrição do Produto:</label>
+                    <input type="text" name="descricao[]" required>
+
+                    <label for="codigo_barras">Código de Barras:</label>
+                    <input type="text" name="codigo_barras[]" required>
+                </div>
+            </div>
+            <button type="button" class="add-product-btn" onclick="addProduct()">Adicionar Novo Produto</button>
+            <br><br>
+            <input type="submit" value="Gerar PDF">
+        </form>
+    </div>
+
+    <script>
+        // Função para adicionar novos campos de produto
+        function addProduct() {
+            var productsContainer = document.getElementById("products-container");
+            
+            // Cria um novo bloco de campos de produto
+            var newProductFields = document.createElement("div");
+            newProductFields.classList.add("product-fields");
+
+            // Cria os novos campos
+            newProductFields.innerHTML = `
+                <label for="codigo_produto">Código do Produto:</label>
+                <input type="text" name="codigo_produto[]" required>
+                <label for="descricao">Descrição do Produto:</label>
+                <input type="text" name="descricao[]" required>
+                <label for="codigo_barras">Código de Barras:</label>
+                <input type="text" name="codigo_barras[]" required>
+            `;
+
+            // Adiciona o novo bloco de campos ao container
+            productsContainer.appendChild(newProductFields);
+        }
+    </script>
+
+</body>
+</html>
